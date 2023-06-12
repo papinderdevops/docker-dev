@@ -17,3 +17,4 @@ password: password
 
 to check ip 
 $ ifconfig
+end
