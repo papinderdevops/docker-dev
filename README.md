@@ -16,4 +16,4 @@ user = root
 password: password
 
 to check ip 
-# ifconfig
+$ ifconfig
