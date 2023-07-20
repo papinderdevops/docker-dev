@@ -1,25 +1,66 @@
+
 version: '3'
 services:
   control:
     build: ./control
-    image: control:1.0
+    image: control:1.1
     hostname: control
+    networks:
+      mynetwork:
+        ipv4_address: 192.168.16.250
     expose:
-     - 22
-     - 80
+      - 22
+      - 80
     ports:
-     - 2222:22
-     - 8080:80
+      - 2222:22
+      - 8080:80
     volumes:
-      - .:/home
+      - ./ansible:/data
 
   ubuntu:
     build: ./ubuntu
-    image: ubuntu:1.0
+    image: ubuntu:1.1
     hostname: ubuntu
+    cap_add:
+      - NET_ADMIN
+    networks:
+      mynetwork:
+        ipv4_address: 192.168.16.251
     expose:
-     - 22
-     - 80
+      - 22
+      - 80
+      - 3000
     ports:
-     - 2223:22
-     - 8081:80
+      - 2223:22
+      - 8081:80
+      - 3000:3000
+
+
+  linux:
+    build: ./linux
+    image: linux:1.1
+    hostname: linux
+    cap_add:
+      - NET_ADMIN
+    networks:
+      mynetwork:
+        ipv4_address: 192.168.16.252
+    expose:
+      - 22
+      - 80
+      - 3000
+    ports:
+      - 2224:22
+      - 8082:80
+      - 3001:3000
+
+
+
+networks:
+  mynetwork:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.16.0/24
+          gateway: 192.168.16.1
+

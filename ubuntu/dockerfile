@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:jammy
 
 RUN apt-get update && apt-get install -y openssh-server
 
@@ -14,6 +14,6 @@ RUN apt-get install -y sudo
 
 RUN sudo -i && echo 'root:password' | chpasswd
 
-EXPOSE 22  80
+EXPOSE 22  80  3306
 
 CMD ["/usr/sbin/sshd", "-D"]

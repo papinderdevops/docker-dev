@@ -1,8 +1,8 @@
-FROM ubuntu
+FROM ubuntu:jammy
 
 RUN apt-get update && apt-get install -y openssh-server
 
-RUN apt-get install -y nano net-tools ansible
+RUN apt-get install -y nano net-tools ansible sshpass
 
 RUN mkdir /var/run/sshd
 
